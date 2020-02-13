@@ -1,5 +1,7 @@
 package com.example.bookstore.web;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,13 +13,15 @@ import com.example.bookstore.domain.Book;
 import com.example.bookstore.domain.BookRepository;
 
 
+
+
 @Controller
 public class BookController {
 	
 	@Autowired
 	BookRepository repository; 
 	
-	@RequestMapping(value = "/booklist", method = RequestMethod.GET)
+	@RequestMapping(value = {"/", "/booklist"}, method = RequestMethod.GET)
 	public String bookstore(Model model) {
 		
 		model.addAttribute("book", new Book());
@@ -30,12 +34,6 @@ public class BookController {
         return "addbook";
     }    
     
-    @RequestMapping(value = "/editbook/{id}")
-    public String editBook(@PathVariable("id") Long bookId, Model model) {
-    	model.addAttribute("book", repository.findById(bookId));
-        return "editbook";
-    }
-    
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String save(Book book){
         repository.save(book);
@@ -46,7 +44,15 @@ public class BookController {
     public String deleteBook(@PathVariable("id") Long bookId, Model model) {
     	repository.deleteById(bookId);
         return "redirect:../booklist";
-    }     
+    }  
+    
+    @RequestMapping(value = "/editbook/{id}", method = RequestMethod.GET)
+    public String editBook(@PathVariable("id") Long bookId, Model model) {
+    	//Haetaan tietokannasta sql-lauseella kirja jolla on tämä ID ja lisätään modeliin
+    	model.addAttribute("book", repository.findById(bookId));
+    	
+        return "editbook";
+    }
 }
 	
 		

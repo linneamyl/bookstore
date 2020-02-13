@@ -18,8 +18,9 @@ public class Book {
 	private String isbn;
 	private double price;
 
-	public Book(String title, String author, int year, String isbn, double price) {
+	public Book(long id, String title, String author, int year, String isbn, double price) {
 		super();
+		this.id = id;
 		this.title = title;
 		this.author = author;
 		this.year = year;
@@ -29,6 +30,14 @@ public class Book {
 
 	public Book() {
 		super();
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public String getTitle() {
@@ -73,8 +82,8 @@ public class Book {
 
 	@Override
 	public String toString() {
-		return "Book [title=" + title + ", author=" + author + ", year=" + year + ", isbn=" + isbn + ", price=" + price
-				+ "]";
+		return "Book [id=" + id + ", title=" + title + ", author=" + author + ", year=" + year + ", isbn=" + isbn
+				+ ", price=" + price + "]";
 	}
 
 }
