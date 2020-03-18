@@ -75,6 +75,11 @@ public class BookController {
     	model.addAttribute("book", book);
         return "editbook";
     }
+    
+    @RequestMapping(value="/login")
+   	public String login() {
+   		return "login";
+   	} 
 }
 	
 		
